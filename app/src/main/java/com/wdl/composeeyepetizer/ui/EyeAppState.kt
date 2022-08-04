@@ -1,5 +1,6 @@
 package com.wdl.composeeyepetizer.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FindInPage
 import androidx.compose.material.icons.filled.Home
@@ -10,12 +11,14 @@ import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.util.trace
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.wdl.feature.home.R as homeR
 import com.wdl.feature.square.R as squareR
 import com.wdl.feature.find.R as findR
@@ -28,6 +31,18 @@ import com.wdl.feature.find.navigation.FindNavigation
 import com.wdl.feature.home.navigation.HomeNavigation
 import com.wdl.feature.mine.navigation.MineNavigation
 import com.wdl.feature.square.navigation.SquareNavigation
+
+
+@Composable
+fun rememberEyeAppState(
+    windowSizeClass: WindowSizeClass,
+    navController: NavHostController = rememberNavController()
+): EyeAppState {
+    NavigationTrackingSideEffect(navController = navController)
+    return remember(navController, windowSizeClass) {
+        EyeAppState(navController = navController, windowSizeClass = windowSizeClass)
+    }
+}
 
 // 自定义remember state
 @Stable
