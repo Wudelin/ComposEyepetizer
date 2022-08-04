@@ -1,43 +1,35 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id("eyepetizer.android.library")
+    id("eyepetizer.android.library.compose")
+    id("eyepetizer.android.library.jacoco")
+    id("eyepetizer.spotless")
 }
 
 android {
-    compileSdk = 32
-
     defaultConfig {
-        minSdk = 21
-        targetSdk = 32
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
     }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
+    lint {
+        checkDependencies = true
     }
 }
 
 dependencies {
+    implementation(libs.androidx.core.ktx)
+    api(libs.androidx.compose.foundation)
+    api(libs.androidx.compose.foundation.layout)
+    api(libs.androidx.compose.material.iconsExtended)
+    api(libs.androidx.compose.material)
+    debugApi(libs.androidx.compose.ui.tooling)
+    api(libs.androidx.compose.ui.tooling.preview)
+    api(libs.androidx.compose.ui.util)
+    api(libs.androidx.compose.runtime)
+//    lintPublish(project(":lint"))
+//    androidTestImplementation(project(":core-testing"))
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.3.0")
-    implementation("com.google.android.material:material:1.4.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    // TODO : Remove these dependency once we upgrade to Android Studio Dolphin b/228889042
+    // These dependencies are currently necessary to render Compose previews
+    debugImplementation(libs.androidx.customview.poolingcontainer)
+    debugImplementation(libs.androidx.lifecycle.viewModelCompose)
+    debugImplementation(libs.androidx.savedstate.ktx)
 }

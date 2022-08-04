@@ -82,6 +82,7 @@ dependencies {
 
     implementation(project(":core-ui"))
     implementation(project(":core-navigation"))
+    implementation(project(":core-design"))
     implementation(project(":feature-home"))
     implementation(project(":feature-square"))
     implementation(project(":feature-find"))
