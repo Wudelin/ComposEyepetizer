@@ -1,6 +1,6 @@
 package com.wdl.composeeyepetizer.navigation
 
-import android.graphics.drawable.Icon
+import com.wdl.core.design.icon.Icon
 import com.wdl.core.navigation.EyeNavigationDestination
 
 data class TopLevelDestination(

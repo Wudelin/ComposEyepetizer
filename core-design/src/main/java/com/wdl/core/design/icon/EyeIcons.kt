@@ -11,3 +11,7 @@ sealed class Icon{
 
     data class DrawableResourceIcon(@DrawableRes val id:Int):Icon()
 }
+
+object EyeIcons{
+
+}
