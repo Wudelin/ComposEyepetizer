@@ -59,7 +59,7 @@ class EyeAppState(
     }
 }
 
-// 跟踪路由变换
+// Jank跟踪路由变换
 @Composable
 private fun NavigationTrackingSideEffect(navController: NavHostController) {
     JankMetericDisposableEffect(navController) { metricsHolder ->
