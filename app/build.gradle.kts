@@ -82,6 +82,10 @@ dependencies {
 
     implementation(project(":core-ui"))
     implementation(project(":core-navigation"))
+    implementation(project(":feature-home"))
+    implementation(project(":feature-square"))
+    implementation(project(":feature-find"))
+    implementation(project(":feature-mine"))
 
     androidTestImplementation(libs.androidx.navigation.testing)
     debugImplementation(libs.androidx.compose.ui.testManifest)

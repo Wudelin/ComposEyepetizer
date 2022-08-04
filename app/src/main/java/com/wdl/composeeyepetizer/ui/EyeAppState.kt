@@ -1,5 +1,7 @@
 package com.wdl.composeeyepetizer.ui
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
@@ -14,6 +16,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.wdl.composeeyepetizer.navigation.TopLevelDestination
 import com.wdl.core.navigation.EyeNavigationDestination
 import com.wdl.core.ui.JankMetericDisposableEffect
+import com.wdl.feature.home.navigation.HomeNavigation
 
 // 自定义remember state
 @Stable
@@ -32,7 +35,11 @@ class EyeAppState(
         get() = !shouldShowBottomBar
 
     val topLevelDestinations: List<TopLevelDestination> = listOf(
-
+//        TopLevelDestination(
+//            route = HomeNavigation.route,
+//            destination = HomeNavigation.destination,
+//            selectedIcon = Icons.Default.Home
+//        )
     )
 
     // 导航实际方法
