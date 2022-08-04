@@ -7,7 +7,7 @@ import coil.decode.SvgDecoder
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class App : Application(), ImageLoaderFactory {
+class EyeApplication : Application(), ImageLoaderFactory {
     override fun newImageLoader() =
         ImageLoader.Builder(this)
             .components {
