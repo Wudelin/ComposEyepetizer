@@ -1,7 +1,6 @@
 package com.wdl.composeeyepetizer.ui
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material.*
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
@@ -10,11 +9,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.wdl.composeeyepetizer.navigation.EyeNavHost
 import com.wdl.composeeyepetizer.navigation.TopLevelDestination
 import com.wdl.composeeyepetizer.ui.theme.ComposeEyepetizerTheme
+import com.wdl.core.design.compoent.EyeBottomNavigationItem
+import com.wdl.core.design.compoent.EyeNavigation
 import com.wdl.core.design.icon.Icon
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalLayoutApi::class)
@@ -71,22 +73,40 @@ fun EyeBottomBar(
     onNavigateToDestination: (TopLevelDestination) -> Unit,
     currentDestination: NavDestination?
 ) {
-    BottomNavigation {
-        destinations.forEach { destination ->
-            val selected =
-                currentDestination?.hierarchy?.any { it.route == destination.route } == true
-            BottomNavigationItem(selected = selected,
-                onClick = { onNavigateToDestination(destination) },
-                icon = {
-                    when(val icon = destination.selectedIcon){
-                        is Icon.ImageVectorIcon-> Icon(imageVector = icon.imageVector, contentDescription = null)
-                        else -> {}
-                    }
-                },
-                label = {
-                    Text(stringResource(destination.iconTextId))
-                }
+    Surface(color = MaterialTheme.colors.surface) {
+        EyeNavigation(
+            modifier = Modifier.windowInsetsPadding(
+                WindowInsets.safeDrawing.only(
+                    WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom
+                )
             )
+        ) {
+            destinations.forEach { destination ->
+                val selected =
+                    currentDestination?.hierarchy?.any { it.route == destination.route } == true
+                EyeBottomNavigationItem(
+                    selected = selected,
+                    onClick = { onNavigateToDestination(destination) },
+                    icon = {
+                        when (val icon = destination.selectedIcon) {
+                            is Icon.ImageVectorIcon -> Icon(
+                                imageVector = icon.imageVector,
+                                contentDescription = null,
+                                modifier = Modifier.size(if (selected) 24.dp else 0.dp)
+                            )
+                            else -> {}
+                        }
+                    },
+                    label = if (selected) null else {
+                        {
+                            Text(
+                                text = stringResource(destination.iconTextId)
+                            )
+                        }
+                    },
+                    alwaysShowLabel = !selected
+                )
+            }
         }
     }
 }
